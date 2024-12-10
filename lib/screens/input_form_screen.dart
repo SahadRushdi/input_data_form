@@ -7,11 +7,11 @@ class InputFormScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             "Input Data Form",
             style: TextStyle(
               fontSize: HEADER_TEXT_SIZE,
@@ -20,27 +20,15 @@ class InputFormScreen extends StatelessWidget {
           ),
           FormInputWidget(
             name: "First Name",
-            child: Container(
-              width: double.infinity,
-              height: 40,
-              color: Colors.red,
-            ),
+            child: TextField(),
           ),
           FormInputWidget(
             name: "Last Name",
-            child: Container(
-              width: double.infinity,
-              height: 20,
-              color: Colors.red,
-            ),
+            child: TextField(),
           ),
           FormInputWidget(
             name: "Age",
-            child: Container(
-              width: double.infinity,
-              height: 20,
-              color: Colors.red,
-            ),
+            child: TextField(),
           ),
         ],
       ),
