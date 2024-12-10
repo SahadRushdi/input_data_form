@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:input_data_form/widgets/form_input_widget.dart';
 
 class InputFormScreen extends StatelessWidget {
   const InputFormScreen({super.key});
@@ -9,24 +10,15 @@ class InputFormScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("First Name"),
-          Container(
-            width: double.infinity,
-            height: 20,
-            color: Colors.red,
+          FormInputWidget(
+            name: "First Name",
+            child:
+              Container(
+                width: double.infinity,
+                height: 20,
+                color: Colors.red,
+              ),
           ),
-          const Text("Last Name"),
-          Container(
-            width: double.infinity,
-            height: 20,
-            color: Colors.red,
-          ),
-          const Text("Age"),
-          Container(
-            width: double.infinity,
-            height: 20,
-            color: Colors.red,
-          )
         ],
       ),
     );
