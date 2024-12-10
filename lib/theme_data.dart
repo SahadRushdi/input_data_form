@@ -1,0 +1,1 @@
+const double HEADER_TEXT_SIZE=42;

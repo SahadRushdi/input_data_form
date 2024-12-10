@@ -12,11 +12,16 @@ class FormInputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(name),
-        child,
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(name),
+          const SizedBox(height: 3),
+          child,
+        ],
+      ),
     );
   }
 }
