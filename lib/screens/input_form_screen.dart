@@ -12,6 +12,8 @@ class InputFormScreen extends StatelessWidget {
     final lastNameNotifier = ValueNotifier<String>("");
     final ageNotifier = ValueNotifier<double>(0);
 
+    final validationNotifier = ValueNotifier("");
+
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -27,7 +29,11 @@ class InputFormScreen extends StatelessWidget {
             name: "First Name",
             child: TextField(
               onChanged: (String value) {
-                firstNameNotifier.value = value;
+                if (value.length>20) {
+                  validationNotifier.value = "First name cannot exceed 20 characters!";
+                } else {
+                  firstNameNotifier.value = value;
+                }
               },
             ),
           ),
@@ -35,7 +41,11 @@ class InputFormScreen extends StatelessWidget {
             name: "Last Name",
             child: TextField(
               onChanged: (String value) {
-                lastNameNotifier.value = value;
+                if (value.length>20) {
+                validationNotifier.value = "Last name cannot exceed 20 characters!";
+                } else {
+                  lastNameNotifier.value = value;
+                }
               },
             ),
           ),
@@ -46,10 +56,20 @@ class InputFormScreen extends StatelessWidget {
                 try {
                   ageNotifier.value = double.parse(value);
                 } catch(ex) {
-                  print("$ex");
+                  validationNotifier.value="Please enter a Valid Number!";
                 }
               },
             ),
+          ),
+          ValueListenableBuilder(valueListenable: validationNotifier, builder: (_,value,__) {
+            return Text(value, style: const TextStyle(
+              color: Colors.red
+            ),);
+          }),
+
+          ElevatedButton(
+              onPressed: (){},
+              child: const Text("Save")
           ),
         ],
       ),
