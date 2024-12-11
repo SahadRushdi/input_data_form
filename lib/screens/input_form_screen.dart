@@ -7,7 +7,6 @@ class InputFormScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final firstNameNotifier = ValueNotifier<String>("");
     final lastNameNotifier = ValueNotifier<String>("");
     final ageNotifier = ValueNotifier<double>(0);
@@ -29,8 +28,9 @@ class InputFormScreen extends StatelessWidget {
             name: "First Name",
             child: TextField(
               onChanged: (String value) {
-                if (value.length>20) {
-                  validationNotifier.value = "First name cannot exceed 20 characters!";
+                if (value.length > 20) {
+                  validationNotifier.value =
+                      "First name cannot exceed 20 characters!";
                 } else {
                   firstNameNotifier.value = value;
                 }
@@ -41,8 +41,9 @@ class InputFormScreen extends StatelessWidget {
             name: "Last Name",
             child: TextField(
               onChanged: (String value) {
-                if (value.length>20) {
-                validationNotifier.value = "Last name cannot exceed 20 characters!";
+                if (value.length > 20) {
+                  validationNotifier.value =
+                      "Last name cannot exceed 20 characters!";
                 } else {
                   lastNameNotifier.value = value;
                 }
@@ -55,22 +56,41 @@ class InputFormScreen extends StatelessWidget {
               onChanged: (String value) {
                 try {
                   ageNotifier.value = double.parse(value);
-                } catch(ex) {
-                  validationNotifier.value="Please enter a Valid Number!";
+                } catch (ex) {
+                  validationNotifier.value = "Please enter a Valid Number!";
                 }
               },
             ),
           ),
-          ValueListenableBuilder(valueListenable: validationNotifier, builder: (_,value,__) {
-            return Text(value, style: const TextStyle(
-              color: Colors.red
-            ),);
-          }),
-
-          ElevatedButton(
-              onPressed: (){},
-              child: const Text("Save")
-          ),
+          ValueListenableBuilder(
+              valueListenable: validationNotifier,
+              builder: (_, value, __) {
+                return Text(
+                  value,
+                  style: const TextStyle(color: Colors.red),
+                );
+              }),
+          ValueListenableBuilder(
+              valueListenable: validationNotifier,
+              builder: (_, validationMessage, __) {
+                return ValueListenableBuilder(
+                    valueListenable: firstNameNotifier,
+                    builder: (_, firstName, __) {
+                      return ValueListenableBuilder(
+                          valueListenable: lastNameNotifier,
+                          builder: (_, lastName, __) {
+                            return ValueListenableBuilder(
+                                valueListenable: ageNotifier,
+                                builder: (_, age, __) {
+                                  return ElevatedButton(
+                                      onPressed: () {
+                                        print("$age, $firstName, $lastName");
+                                      },
+                                      child: const Text("Save"));
+                                });
+                          });
+                    });
+              })
         ],
       ),
     );
