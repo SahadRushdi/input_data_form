@@ -1,20 +1,11 @@
+// My own Style for Input Data Form
+
 import 'package:flutter/material.dart';
 import 'package:input_data_form/theme_data.dart';
 import 'package:input_data_form/widgets/form_input_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class InputFormScreen extends StatelessWidget {
   const InputFormScreen({super.key});
-
-  Future<void> saveData(String firstName, String lastName, double age) async {
-    print("Save Data $firstName, $lastName, $age");
-    final pref = await SharedPreferences.getInstance();
-
-    pref.setString("firstName", firstName);
-    pref.setString("lastName", lastName);
-    pref.setDouble("age", age);
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +86,7 @@ class InputFormScreen extends StatelessWidget {
                                 builder: (_, age, __) {
                                   return ElevatedButton(
                                       onPressed: () {
-                                        saveData(firstName, lastName, age);
+                                        print("$age, $firstName, $lastName");
                                       },
                                       child: const Text("Save"));
                                 });
