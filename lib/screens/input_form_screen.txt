@@ -1,11 +1,25 @@
-// My own Style for Input Data Form
-
 import 'package:flutter/material.dart';
+import 'package:input_data_form/screens/saved_data_screen.dart';
 import 'package:input_data_form/theme_data.dart';
 import 'package:input_data_form/widgets/form_input_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class InputFormScreen extends StatelessWidget {
   const InputFormScreen({super.key});
+
+  Future<void> saveData(String firstName, String lastName, double age) async {
+    print("Save Data $firstName, $lastName, $age");
+    final pref = await SharedPreferences.getInstance();
+
+    return Future.delayed(const Duration(seconds: 1), () async {
+      final pref = await SharedPreferences.getInstance();
+
+      pref.setString("firstName", "Saved:: $firstName");
+      pref.setString("lastName", "Saved:: $lastName");
+      pref.setDouble("age", age);
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +46,7 @@ class InputFormScreen extends StatelessWidget {
               onChanged: (String value) {
                 if (value.length > 20) {
                   validationNotifier.value =
-                      "First name cannot exceed 20 characters!";
+                  "First name cannot exceed 20 characters!";
                 } else {
                   firstNameNotifier.value = value;
                 }
@@ -45,7 +59,7 @@ class InputFormScreen extends StatelessWidget {
               onChanged: (String value) {
                 if (value.length > 20) {
                   validationNotifier.value =
-                      "Last name cannot exceed 20 characters!";
+                  "Last name cannot exceed 20 characters!";
                 } else {
                   lastNameNotifier.value = value;
                 }
@@ -86,13 +100,18 @@ class InputFormScreen extends StatelessWidget {
                                 builder: (_, age, __) {
                                   return ElevatedButton(
                                       onPressed: () {
-                                        print("$age, $firstName, $lastName");
+                                        saveData(firstName, lastName, age)
+                                            .whenComplete(() {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(builder: (context) => const SavedDataScreen()));
+                                        });
                                       },
                                       child: const Text("Save"));
                                 });
                           });
                     });
-              })
+              }),
         ],
       ),
     );
